@@ -48017,7 +48017,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'search',
     props: true,
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(0)]).then(__webpack_require__.bind(null, /*! ./views/Search.vue */ "./resources/assets/js/views/Search.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./views/Search.vue */ "./resources/assets/js/views/Search.vue"));
     }
   }]
 });

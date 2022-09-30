@@ -10,6 +10,9 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_CustomNavbar_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/CustomNavbar.vue */ "./resources/assets/js/components/CustomNavbar.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'search',
@@ -27,7 +30,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       createdDog: false,
-      params: ''
+      params: '',
+      perros: []
     };
   },
   mounted: function mounted() {
@@ -40,6 +44,25 @@ __webpack_require__.r(__webpack_exports__);
       setTimeout(function () {
         _this.createdDog = false;
       }, 4000);
+    }
+  },
+  methods: {
+    search: function search() {
+      var _this2 = this;
+
+      var formData = new FormData();
+      formData.set('busqueda', this.params);
+      var config = {
+        headers: {
+          "content-type": "multipart/form-data"
+        }
+      };
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/search", formData, config).then(function (response) {
+        console.log(response.data);
+        _this2.perros = response.data.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   }
 });
@@ -150,7 +173,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "row"
   }, [_c("div", {
-    staticClass: "col-md-12 custom-input"
+    staticClass: "col-md-12"
   }, [_c("label", {
     attrs: {
       "for": "basic-url"
@@ -177,12 +200,67 @@ var render = function render() {
         _vm.params = $event.target.value;
       }
     }
-  }), _vm._v(" "), _vm._m(1)])])])])]), _vm._v(" "), _vm.createdDog ? _c("div", {
+  }), _vm._v(" "), _c("span", {
+    staticClass: "input-group-btn"
+  }, [_c("button", {
+    staticClass: "btn btn-default",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.search();
+      }
+    }
+  }, [_vm._v("Buscar")])])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-12",
+    staticStyle: {
+      "margin-top": "15px"
+    }
+  }, [_c("ul", {
+    staticClass: "list-group"
+  }, _vm._l(_vm.perros, function (perro) {
+    return _c("li", {
+      staticClass: "list-group-item"
+    }, [_c("div", {
+      staticClass: "row"
+    }, [_c("div", {
+      staticClass: "col-md-2"
+    }, [_c("img", {
+      attrs: {
+        src: "/images/perros/" + perro.foto
+      }
+    })]), _vm._v(" "), _c("div", {
+      staticClass: "col-md-2"
+    }, [_c("h4", {
+      staticClass: "list-group-item-heading"
+    }, [_vm._v("Nombre:")]), _vm._v(" "), _c("p", {
+      staticClass: "list-group-item-text"
+    }, [_vm._v(_vm._s(perro.nombre))])]), _vm._v(" "), _c("div", {
+      staticClass: "col-md-2"
+    }, [_c("h4", {
+      staticClass: "list-group-item-heading"
+    }, [_vm._v("Raza:")]), _vm._v(" "), _c("p", {
+      staticClass: "list-group-item-text"
+    }, [_vm._v(_vm._s(perro.raza))])]), _vm._v(" "), _c("div", {
+      staticClass: "col-md-2"
+    }, [_c("h4", {
+      staticClass: "list-group-item-heading"
+    }, [_vm._v("Tamaño:")]), _vm._v(" "), _c("p", {
+      staticClass: "list-group-item-text"
+    }, [_vm._v(_vm._s(perro.size))])]), _vm._v(" "), _c("div", {
+      staticClass: "col-md-2"
+    }, [_c("h4", {
+      staticClass: "list-group-item-heading"
+    }, [_vm._v("Color:")]), _vm._v(" "), _c("p", {
+      staticClass: "list-group-item-text"
+    }, [_vm._v(_vm._s(perro.color))])])])]);
+  }), 0)])])])]), _vm._v(" "), _vm.createdDog ? _c("div", {
     staticClass: "alert alert-success alert-dismissible",
     attrs: {
       role: "alert"
     }
-  }, [_vm._m(2), _vm._v("\n\t\t\t  Perrito creado con exito!\n\t\t\t")]) : _vm._e()])])], 1);
+  }, [_vm._m(1), _vm._v("\n\t\t\t\t  Perrito creado con exito!\n\t\t\t\t")]) : _vm._e()])])], 1);
 };
 
 var staticRenderFns = [function () {
@@ -194,18 +272,6 @@ var staticRenderFns = [function () {
   }, [_c("h3", {
     staticClass: "panel-title"
   }, [_vm._v("Busqueda y listado de perros")])]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("span", {
-    staticClass: "input-group-btn"
-  }, [_c("button", {
-    staticClass: "btn btn-default",
-    attrs: {
-      type: "button"
-    }
-  }, [_vm._v("Buscar")])]);
 }, function () {
   var _vm = this,
       _c = _vm._self._c;
@@ -259,7 +325,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.contenedor {\r\n\tmargin-top: 5%;\r\n\ttext-align: center;\n}\r\n", ""]);
+exports.push([module.i, "\n.contenedor {\r\n\tmargin-top: 5%;\r\n\ttext-align: center;\n}\nimg {\r\n  max-width: 50%;\r\n  max-height: 75px;\n}\r\n", ""]);
 
 // exports
 
@@ -401,15 +467,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************!*\
   !*** ./resources/assets/js/views/Search.vue ***!
   \**********************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Search_vue_vue_type_template_id_7176153b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Search.vue?vue&type=template&id=7176153b& */ "./resources/assets/js/views/Search.vue?vue&type=template&id=7176153b&");
 /* harmony import */ var _Search_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Search.vue?vue&type=script&lang=js& */ "./resources/assets/js/views/Search.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Search_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Search_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _Search_vue_vue_type_style_index_0_id_7176153b_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Search.vue?vue&type=style&index=0&id=7176153b&lang=css& */ "./resources/assets/js/views/Search.vue?vue&type=style&index=0&id=7176153b&lang=css&");
+/* empty/unused harmony star reexport *//* harmony import */ var _Search_vue_vue_type_style_index_0_id_7176153b_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Search.vue?vue&type=style&index=0&id=7176153b&lang=css& */ "./resources/assets/js/views/Search.vue?vue&type=style&index=0&id=7176153b&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -441,7 +506,7 @@ component.options.__file = "resources/assets/js/views/Search.vue"
 /*!***********************************************************************!*\
   !*** ./resources/assets/js/views/Search.vue?vue&type=script&lang=js& ***!
   \***********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -22,8 +22,12 @@
 				  		</div>
 
 				  		<div class="col-md-6 custom-input">
-								<label for="basic-url">Tamaño:</label>
-							  <input v-model="size" type="text" class="form-control">
+							  <label for="sel1">Tamaño::</label>
+							  <select v-model="size" class="form-control" id="sel1">
+							    <option value="chico">Chico</option>
+							    <option value="mediano">Mediano</option>
+							    <option value="grande">Grande</option>
+							  </select>
 				  		</div>
 
 				  		<div class="col-md-6 custom-input">

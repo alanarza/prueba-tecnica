@@ -235,9 +235,9 @@ var render = function render() {
     staticClass: "col-md-6 custom-input"
   }, [_c("label", {
     attrs: {
-      "for": "basic-url"
+      "for": "sel1"
     }
-  }, [_vm._v("Tamaño:")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Tamaño::")]), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -246,18 +246,32 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      type: "text"
-    },
-    domProps: {
-      value: _vm.size
+      id: "sel1"
     },
     on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.size = $event.target.value;
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.size = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
       }
     }
-  })]), _vm._v(" "), _c("div", {
+  }, [_c("option", {
+    attrs: {
+      value: "chico"
+    }
+  }, [_vm._v("Chico")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "mediano"
+    }
+  }, [_vm._v("Mediano")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "grande"
+    }
+  }, [_vm._v("Grande")])])]), _vm._v(" "), _c("div", {
     staticClass: "col-md-6 custom-input"
   }, [_c("label", {
     attrs: {

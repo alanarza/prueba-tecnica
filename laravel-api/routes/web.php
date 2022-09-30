@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//API Routes
+Route::post('/api/create', 'DogsController@create');
+Route::post('/api/search', 'DogsController@search');
+
+
+//SPA Route
+Route::get('/{any}', 'SpaController@index')->where('any', '.*');
